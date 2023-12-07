@@ -6,11 +6,25 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:52:37 by fboivin           #+#    #+#             */
-/*   Updated: 2023/10/25 15:20:31 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/11/08 12:09:01 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/philo.h"
+#include "../include/philo.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (n <= 0)
+	{
+		return (0);
+	}
+	while ((s1[i] == s2[i] && (i < n - 1)) && (s1[i] && s2[i]))
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
 
 int	ft_strlen(char *str)
 {

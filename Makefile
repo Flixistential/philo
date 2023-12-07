@@ -1,11 +1,16 @@
 NAME = philo
 CC = gcc
-CFLAGS = -pthread -Wall -Wextra -Werror -g
+#CFLAGS = -pthread -Wall -Wextra -Werror -fsanitize=thread -g -pthread
+CFLAGS = -pthread -Wall -Wextra -Werror -g -pthread
 
-src =	main.c\
-		philo_utils.c
+src =	./src/main.c\
+		./src/philo_utils.c\
+		./src/time.c\
+		./src/init_philo.c\
+		./src/parse.c\
+		./src/monitoring.c
 OBJ_DIR = obj
-OBJS = $(addprefix $(OBJ_DIR)/, $(src:.c=.o))
+OBJS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(src)))
 REMOVE = rm -f
 
 GREEN = \033[0;32m
@@ -20,7 +25,7 @@ ${NAME}:$(OBJ_DIR) ${OBJS}
 
 all:${NAME}
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: src/%.c
 	@printf "${GREEN}Compiling: ${YELLOW}$(CC) $(CFLAGS) -c $< -o $@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "\r\033[K"  # Clear the line
