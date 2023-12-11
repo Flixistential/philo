@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:26:47 by fboivin           #+#    #+#             */
-/*   Updated: 2023/11/08 12:08:53 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/11 16:48:12 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ void	init_dw(t_deathwatch *dwatch)
 void	ft_initdata(size_t p_num, t_philo *philo, char **arg)
 {
 	size_t	i;
-	long	start_time;
+	//long	start_time;
 
 	i = 0;
-	start_time = get_time();
+	//start_time = get_time();
 	while (i < p_num)
 	{
-		philo[i].last_meal = start_time;
+		//philo[i].last_meal = start_time;
 		philo[i].index = (i + 1);
 		philo[i].time_to_die = ft_atoui(arg[2]);
 		philo[i].time_to_eat = ft_atoui(arg[3]);
 		philo[i].time_to_sleep = ft_atoui(arg[4]);
 		philo[i].num_philo = p_num;
-		philo[i].start_time = start_time;
+		//philo[i].start_time = start_time;
 		if (arg[5])
 			philo[i].num_meal = ft_atoui(arg[5]);
 		else
