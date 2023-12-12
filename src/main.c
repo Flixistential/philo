@@ -6,25 +6,49 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:11:49 by fboivin           #+#    #+#             */
-/*   Updated: 2023/12/11 17:42:31 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/12 00:59:50 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int ft_deadcheck(t_philo *philo)
+void 	ft_max_meal(t_philo *philo)
 {
-	pthread_mutex_lock(philo->mutex_flag);
-	if (!*philo->dead_flag)
-	{
-		pthread_mutex_unlock(philo->mutex_flag);
-		return (0);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->mutex_flag);
-		return (1);
-	}
+	while (!ft_deadcheck(philo) && philo->meal_taken < philo->num_meal)
+		{
+			pthread_mutex_lock(philo->r_fork);
+			print_msg(philo, FORK);
+			pthread_mutex_lock(philo->l_fork);
+			print_msg(philo, FORK);
+			print_msg(philo, EAT);
+			ft_usleep(philo->time_to_eat);
+			pthread_mutex_unlock(philo->r_fork);
+			pthread_mutex_unlock(philo->l_fork);
+			if (philo->meal_taken < philo->num_meal)
+			{
+				print_msg(philo, SLEEP);
+				ft_usleep(philo->time_to_sleep);
+				print_msg(philo, THINK);
+			}
+		}
+}
+
+void	ft_infinite(t_philo *philo)
+{
+	while (!ft_deadcheck(philo))
+		{
+			pthread_mutex_lock(philo->r_fork);
+			print_msg(philo, FORK);
+			pthread_mutex_lock(philo->l_fork);
+			print_msg(philo, FORK);
+			print_msg(philo, EAT);
+			ft_usleep(philo->time_to_eat);
+			pthread_mutex_unlock(philo->r_fork);
+			pthread_mutex_unlock(philo->l_fork);
+			print_msg(philo, SLEEP);
+			ft_usleep(philo->time_to_sleep);
+			print_msg(philo, THINK);
+		}
 }
 
 void	print_msg(t_philo *philo, char *msg)
@@ -72,42 +96,9 @@ void	*ft_test(void *p)
 	if (philo->index %2 != 0)
 		ft_usleep(philo->time_to_eat * 0.5);
 	if (!philo->num_meal)
-	{
-		while (!ft_deadcheck(philo))
-		{
-			pthread_mutex_lock(philo->r_fork);
-			print_msg(philo, FORK);
-			pthread_mutex_lock(philo->l_fork);
-			print_msg(philo, FORK);
-			print_msg(philo, EAT);
-			ft_usleep(philo->time_to_eat);
-			pthread_mutex_unlock(philo->r_fork);
-			pthread_mutex_unlock(philo->l_fork);
-			print_msg(philo, SLEEP);
-			ft_usleep(philo->time_to_sleep);
-			print_msg(philo, THINK);
-		}
-	}
+		ft_infinite(philo);
 	else if (philo->num_meal > 0)
-	{
-		while (!ft_deadcheck(philo) && philo->meal_taken < philo->num_meal)
-		{
-			pthread_mutex_lock(philo->r_fork);
-			print_msg(philo, FORK);
-			pthread_mutex_lock(philo->l_fork);
-			print_msg(philo, FORK);
-			print_msg(philo, EAT);
-			ft_usleep(philo->time_to_eat);
-			pthread_mutex_unlock(philo->r_fork);
-			pthread_mutex_unlock(philo->l_fork);
-			if (philo->meal_taken < philo->num_meal)
-			{
-				print_msg(philo, SLEEP);
-				ft_usleep(philo->time_to_sleep);
-				print_msg(philo, THINK);
-			}
-		}
-	}
+		ft_max_meal(philo);
 	return (NULL);
 }
 
@@ -115,17 +106,13 @@ int	main(int argc, char **argv)
 {
 	t_philo			philo[MAX_PHILO];
 	pthread_mutex_t	fork[MAX_PHILO];
-	size_t			i;
+	size_t i;
 	t_deathwatch	dwatch;
 
-	i = 0;
 	//test_sleep_accuracy();
-	if (argc < 5 || argc > 6)
-		return (ft_error(1));
-	if (ft_numcheck(argv) != 0)
-		return (-1);
-	if (ft_atoui(argv[1]) == 1)
-		return(ft_onephilo(argv));
+	i = 0;
+	if (ft_parse(argc, argv) == -1)
+		return(-1);
 	if (ft_makephilo (argv,  philo, &dwatch) < 0)
 		return (-1);
 	ft_makefork(philo, fork);
@@ -137,11 +124,6 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	//ft_deathwatch(philo, &dwatch);
-	i = 0;
-	//make a join and destroy mutex
-	while (i < philo[0].num_philo)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
+	ft_joinanddestroy(philo, &dwatch);
 }
+

@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:35:42 by fboivin           #+#    #+#             */
-/*   Updated: 2023/11/08 12:08:59 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/12 00:16:29 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ int	ft_error(int err)
 		ft_putendl_fd("Input too long", 2);
 	else if (err == 4)
 		ft_putendl_fd("Error while creating thread", 2);
+	else if(err == 5)
+		ft_putendl_fd("Error while joining thread", 2);
+	else if(err == 6)
+		ft_putendl_fd("Error while destroying thread", 2);
 	return (-1);
 }
 
@@ -55,5 +59,16 @@ int	ft_numcheck(char **arg)
 		i++;
 		j = 0;
 	}
+	return (0);
+}
+
+int ft_parse(int argc, char **argv)
+{
+	if (argc < 5 || argc > 6)
+		return (ft_error(1));
+	if (ft_numcheck(argv) != 0)
+		return (-1);
+	if (ft_atoui(argv[1]) == 1)
+		return(ft_onephilo(argv));
 	return (0);
 }

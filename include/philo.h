@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:01:03 by fboivin           #+#    #+#             */
-/*   Updated: 2023/12/11 16:50:49 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/12 01:00:36 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,8 @@ int		ft_deathwatch(t_philo *philo, t_deathwatch *dwatch);
 int		ft_checkmeal(t_philo *philo);
 int		ft_onephilo(char **argv);
 void    test_sleep_accuracy(void);
+int 	ft_deadcheck(t_philo *philo);
+int 	ft_parse(int argc, char **argv);
+int		ft_joinanddestroy(t_philo *philo, t_deathwatch *dwatch);
 
 #endif

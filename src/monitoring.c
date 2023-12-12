@@ -6,11 +6,27 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:51:14 by fboivin           #+#    #+#             */
-/*   Updated: 2023/11/08 12:08:56 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/11 20:57:14 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int ft_deadcheck(t_philo *philo)
+{
+	pthread_mutex_lock(philo->mutex_flag);
+	if (!*philo->dead_flag)
+	{
+		pthread_mutex_unlock(philo->mutex_flag);
+		return (0);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->mutex_flag);
+		return (1);
+	}
+}
+
 
 int	ft_checkmeal(t_philo *philo)
 {

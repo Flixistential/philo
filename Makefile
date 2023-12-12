@@ -1,14 +1,15 @@
 NAME = philo
 CC = gcc
-CFLAGS = -pthread -Wall -Wextra -Werror -fsanitize=thread -g -pthread
-#CFLAGS = -pthread -Wall -Wextra -Werror -g -pthread
+#CFLAGS = -pthread -Wall -Wextra -Werror -fsanitize=thread -g -pthread
+CFLAGS = -pthread -Wall -Wextra -Werror -g -pthread
 
 src =	./src/main.c\
 		./src/philo_utils.c\
 		./src/time.c\
 		./src/init_philo.c\
 		./src/parse.c\
-		./src/monitoring.c
+		./src/monitoring.c\
+		./src/exit.c
 OBJ_DIR = obj
 OBJS = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(src)))
 REMOVE = rm -f
