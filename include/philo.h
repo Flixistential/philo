@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:01:03 by fboivin           #+#    #+#             */
-/*   Updated: 2023/12/12 01:00:36 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/12 18:35:20 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define THINK "is thinking"
 # define FORK "has taken a fork"
 # define DIE "died"
-
 
 typedef struct s_philo
 {
@@ -81,12 +80,13 @@ void	print_msg(t_philo *philo, char *msg);
 void	init_dw(t_deathwatch *dwatch);
 void	ft_initshared(t_philo *philo, t_deathwatch *dwatch);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_deathwatch(t_philo *philo, t_deathwatch *dwatch);
 int		ft_checkmeal(t_philo *philo);
 int		ft_onephilo(char **argv);
-void    test_sleep_accuracy(void);
-int 	ft_deadcheck(t_philo *philo);
-int 	ft_parse(int argc, char **argv);
+int		ft_deadcheck(t_philo *philo);
+int		ft_parse(int argc, char **argv);
 int		ft_joinanddestroy(t_philo *philo, t_deathwatch *dwatch);
+void	ft_death(t_philo *philo);
+void	ft_max_meal(t_philo *philo);
+void	ft_infinite(t_philo *philo);
 
 #endif

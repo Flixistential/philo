@@ -6,7 +6,7 @@
 /*   By: fboivin <fboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:52:37 by fboivin           #+#    #+#             */
-/*   Updated: 2023/11/08 12:09:01 by fboivin          ###   ########.fr       */
+/*   Updated: 2023/12/12 18:29:43 by fboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
-
 
 void	ft_putendl_fd(char *s, int fd)
 {

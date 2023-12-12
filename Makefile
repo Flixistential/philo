@@ -1,7 +1,7 @@
 NAME = philo
 CC = gcc
-#CFLAGS = -pthread -Wall -Wextra -Werror -fsanitize=thread -g -pthread
-CFLAGS = -pthread -Wall -Wextra -Werror -g -pthread
+#CFLAGS = -pthread -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -pthread -Wall -Wextra -Werror -g
 
 src =	./src/main.c\
 		./src/philo_utils.c\
